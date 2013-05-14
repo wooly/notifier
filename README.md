@@ -1,6 +1,6 @@
 # Notifier
 
-TODO: Write a gem description
+This gem provides a (very) light wrapper around the HipChat gem, to make it easier to send notifications to HipChat rooms from Rails.
 
 ## Installation
 
@@ -18,12 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add the following to config/initializers/notifier.rb:
 
-## Contributing
+    Notifier.configure do |config|
+        config.api_key = "<hipchat-api-key>"
+    end
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Notify HipChat from within your app:
+
+    Notifier::notify('My Room', 'Notifier', "Hello from Notifier!", :red)
