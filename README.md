@@ -22,8 +22,13 @@ Add the following to config/initializers/notifier.rb:
 
     Notifier.configure do |config|
         config.api_key = "<hipchat-api-key>"
+        config.room_name = "My Room"
+        config.user_name = "RoomBot"
+        config.environments = [:production]
     end
 
 Notify HipChat from within your app:
 
-    Notifier::notify('My Room', 'Notifier', "Hello from Notifier!", :red)
+    Notifier::success("This is a success message!")
+    Notifier::warning("This is a warning message!")
+    Notifier::success("This is an error message!")
