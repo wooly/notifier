@@ -16,25 +16,25 @@ module Notifier
     end
 
     def success(message)
-      notify(green)
+      notify(message, "green")
     end
 
     def error(message)
-      notify(red)
+      notify(message, "red")
     end
 
     def debug(message)
-      notify(yellow)
+      notify(message, "yellow")
     end
 
-    def notify(color)
+    def notify(message, color)
       unless configured and env_ok
         # Notifier.warn "No API key configured, couldn't notify"
-        return
+        return false
       end
 
       client = HipChat::Client.new(configuration.api_key)
-      client[room].send(@configuration.room_name, @configuration.user_name, message, :color => color)
+      client[@configuration.room_name].send(@configuration.user_name, message, :color => color)
     end
     
     def configuration
@@ -42,7 +42,7 @@ module Notifier
     end
 
     def configured
-      unless @configuration.api_key.nil? || @configuration.room_name.nil? || @configuration.user_name.nil?
+      not (@configuration.api_key.nil? || @configuration.room_name.nil? || @configuration.user_name.nil?)
     end
 
     def env_ok
