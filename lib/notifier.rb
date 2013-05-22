@@ -23,8 +23,12 @@ module Notifier
       notify(message, "red")
     end
 
-    def info(message)
+    def debug(message)
       notify(message, "gray")
+    end
+
+    def info(message)
+      notify(message, "yellow")
     end
 
     def notify(message, color)
