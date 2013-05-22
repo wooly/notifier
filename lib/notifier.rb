@@ -23,8 +23,8 @@ module Notifier
       notify(message, "red")
     end
 
-    def debug(message)
-      notify(message, "yellow")
+    def info(message)
+      notify(message, "gray")
     end
 
     def notify(message, color)
@@ -34,7 +34,7 @@ module Notifier
       end
 
       client = HipChat::Client.new(configuration.api_key)
-      client[@configuration.room_name].send(@configuration.user_name, message, :color => color)
+      client[configuration.room_name].send(configuration.user_name, message, :color => color)
     end
     
     def configuration
@@ -42,11 +42,11 @@ module Notifier
     end
 
     def configured
-      not (@configuration.api_key.nil? || @configuration.room_name.nil? || @configuration.user_name.nil?)
+      not (configuration.api_key.nil? || configuration.room_name.nil? || configuration.user_name.nil?)
     end
 
     def env_ok
-      return @configuration.environments.include? Rails.env.to_sym
+      return configuration.environments.include? Rails.env.to_sym
     end
   end
 end
